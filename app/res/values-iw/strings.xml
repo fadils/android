@@ -15,12 +15,11 @@
   limitations under the License.
 -->
 <resources>
-
-    <!-- Error messages -->
     <string name="error_orgs_load">טעינת ארגון משתמש &amp; נכשלה</string>
     <string name="error_issues_load">נכשלה טעינת סוגיות</string>
     <string name="error_repos_load">טעינת מאגרים נכשלה</string>
     <string name="error_repo_load">טעינת מאגר נכשלה</string>
+    <string name="error_contributors_load">טעינת תורמים נכשלה</string>
     <string name="error_gist_load">טעינת תמצית נכשלה</string>
     <string name="error_news_load">טעינת חדשות נכשלה</string>
     <string name="error_followers_load">טעינת עוקבים נכשלה</string>
@@ -46,10 +45,7 @@
     <string name="error_unstarring_repository">ביטול סימון בכוכב נכשל</string>
     <string name="error_checking_starring_status">בדיקת מצב סימון בכוכב נכשלה</string>
     <string name="error_rendering_markdown">עיבוד הוזלה נכשל</string>
-    <!--  -->
-
-
-    <!-- Loading messages -->
+    <string name="error_users_search">חיפוש משתמשים נכשל</string>
     <string name="loading_gist">טוען תמצית...</string>
     <string name="random_gist">טוען תמצית אקראית...</string>
     <string name="loading_more_issues">טוען עוד סוגיות...</string>
@@ -67,12 +63,9 @@
     <string name="loading_commits">טוען רישומים...</string>
     <string name="loading_files_and_comments">טוען תגובות קבצי &amp;</string>
     <string name="loading_refs">טוען תגיות ענף &amp;</string>
-    <!--  -->
-
-
-    <!-- Empty messages -->
     <string name="no_bookmarks">אין סימניות</string>
     <string name="no_repositories">אין מאגרים</string>
+    <string name="no_contributors">אין תורמים</string>
     <string name="no_issues">אין סוגיות</string>
     <string name="no_gists">אין תמצותים</string>
     <string name="no_people">אין אנשים</string>
@@ -80,21 +73,14 @@
     <string name="no_members">אין חברים</string>
     <string name="no_news">אין חדשות</string>
     <string name="no_commits">אין רשומות לביצוע</string>
-    <!--  -->
-
-
-    <!-- Updating messages -->
     <string name="updating_assignee">מעדכן מוצב...</string>
     <string name="updating_issue">מעדכן סוגייה...</string>
     <string name="updating_labels">מעדכן תווית...</string>
     <string name="updating_milestone">מעדכן אבן-דרך...</string>
-    <!--  -->
-
-    <string name="app_name">GitHub</string>
     <string name="news">חדשות</string>
     <string name="issues">סוגיות</string>
     <string name="gists">תמצותים</string>
-    <string name="commits">משימות לביצוע</string>
+    <string name="global_search">חיפוש GitHub</string>
     <string name="find_repositories">מצא מאגרים</string>
     <string name="find_issues">מצא סוגיות</string>
     <string name="search_title">חפש...</string>
@@ -104,8 +90,8 @@
     <string name="creating_gist">יוצר תמצית…</string>
     <string name="create">צור</string>
     <string name="create_gist">צור תמצית</string>
+    <string name="gist_content_hint">שים \"שלום עולם!\"</string>
     <string name="make_public">הפוך תמצית זו לציבורית</string>
-    <string name="gist_file_name_hint">file.rb</string>
     <string name="gist">תמצית</string>
     <string name="comments">תגובות</string>
     <string name="files">קבצים</string>
@@ -117,11 +103,10 @@
     <string name="filter">מסנן</string>
     <string name="bookmark">סימנייה</string>
     <string name="comment">הגב</string>
-    <string name="delete">מחק</string>
     <string name="refresh">רענן</string>
     <string name="dashboard_issues_title">לוח סוגיות</string>
     <string name="bookmarks">סימניות</string>
-    <string name="gists_title">תימצותים</string>
+    <string name="gists_title">תמצותים</string>
     <string name="issue_title">סוגיה #</string>
     <string name="pull_request_title">בקשת משיכה #</string>
     <string name="gist_title">תמצית\u0020</string>
@@ -130,6 +115,7 @@
     <string name="comment_hint">הכנס תגובה</string>
     <string name="show_more">הצג עוד…</string>
     <string name="repositories">מאגרים</string>
+    <string name="contributors">תורמים</string>
     <string name="issues_title">סוגיות</string>
     <string name="edit_labels">ערוך תוויות</string>
     <string name="milestone_prefix">אבן דרך:</string>
@@ -146,6 +132,8 @@
     <string name="select_milestone">בחר אבן דרך</string>
     <string name="select_labels">בחר תוויות</string>
     <string name="select_ref">בחר ענף או תג</string>
+    <string name="enter_otp_code_title">קוד אימות</string>
+    <string name="enter_otp_code_message">אימות דו שלבי מופעל עבור חשבונך. הכנס קוד כדי לאמת זהותך.</string>
     <string name="no_milestone">אין אבן דרך</string>
     <string name="unassigned">אף אחד לא מוצב</string>
     <string name="assigned">משוייך</string>
@@ -159,22 +147,28 @@
     <string name="new_issue">סוגייה חדשה</string>
     <string name="anonymous">אנונימי</string>
     <string name="message_filter_saved">מסנן סוגיות נשמר במועדפים</string>
+    <string name="recently_viewed">נצפה לאחרונה</string>
     <string name="recent">אחרונים</string>
+    <string name="recent_remove">הסר אחרונים</string>
+    <string name="recent_list_remove">הסר מרשימת שומשו לאחרונה</string>
     <string name="section_issue_status">מצב:</string>
-    <string name="status_open">פתוח</string>
+    <string name="status_open">פתח</string>
     <string name="status_closed">סגור</string>
     <string name="section_issue_assigned">משוייך אל:</string>
     <string name="assignee_anyone">כולם</string>
     <string name="section_issue_milestone">אבן דרך:</string>
-    <string name="none">שום דבר</string>
+    <string name="none">ריק</string>
     <string name="section_issue_labels">תוויות:</string>
     <string name="log_in">התחבר</string>
-    <string name="signup_link">חדש ב-GitHub? &lt; href=\"https://github.com/plans\">לחץ כאן &lt; / > כדי להירשם</string>
+    <string name="signup_link">חדש ב-GitHub? &lt; href=\"https://github.com/plans\"&gt;לחץ כאן &lt; / &gt; כדי להירשם
+    </string>
+    <string name="signup_link_two_factor_auth">לא בטוח מה לעשות? &lt;a
+        href=\"https://help.github.com/articles/about-two-factor-authentication\"&gt;קבל קצת עזרה.&lt;/a&gt;</string>
     <string name="connection_failed">לא יכול להתחבר ל- GitHub</string>
     <string name="invalid_login_or_password">נא הכנס סיסמת התחברות &amp; תקינה</string>
     <string name="invalid_password">נא הכנס סיסמה תקינה</string>
     <string name="password">סיסמה</string>
-    <string name="login_or_email">התחבר או דוא"\ל</string>
+    <string name="username_or_email">שם משתמש או דואר אלקטרוני</string>
     <string name="followers">עוקבים</string>
     <string name="following">עוקב אחרי</string>
     <string name="followers_self">עוקבים</string>
@@ -191,7 +185,6 @@
     <string name="prefix_created">נוצר\u0020</string>
     <string name="prefix_updated">עודכן\u0020</string>
     <string name="prefix_opened">נפתח\u0020</string>
-    <string name="clear">נקה</string>
     <string name="open_issues">סוגיות פתוחות</string>
     <string name="closed_issues">סוגיות סגורות</string>
     <string name="confirm_bookmark_delete_title">הסר סימנייה</string>
@@ -211,10 +204,10 @@
     <string name="reopen">פתח מחדש</string>
     <string name="title_invalid_github_url">כתובת GitHub לא תקינה</string>
     <string name="message_invalid_github_url">לא היתה אפשרות לפתוח את כתובת ה-URL על-ידי יישום זה: \n {0}</string>
-    <string name="recently_viewed">נצפה לאחרונה</string>
-    <string name="cancel">ביטול</string>
     <string name="authenticator_conflict_title">התנגשות יישום</string>
-    <string name="authenticator_conflict_message">Another installed app is already configured for GitHub authentication.\n\nYou must remove the other app from the Accounts &amp; sync settings and uninstall it before the GitHub app can be used.</string>
+    <string name="authenticator_conflict_message">יישום אחר מוגדר להתחברות GitHub.\n\nעליך להסיר את היישום האחר מהגדרות
+        חשבונות &amp; סנכרון ולהסיר את היישום לפני השימוש ביישום GitHub.
+    </string>
     <string name="opening_repository">פותח {0}…</string>
     <string name="commit_compare_title">השווה משימות</string>
     <string name="commit_prefix">משימה\u0020</string>
@@ -233,9 +226,9 @@
     <string name="starring_repository">מסמן בכוכב...</string>
     <string name="unstarring_repository">מבטל סימון בכוכב...</string>
     <string name="navigate_to">נווט אל…</string>
-
-    <!-- Tab titles, should be as short as possible -->
+    <string name="navigate_to_user">נווט אל %s</string>
     <string name="tab_repositories">מאגרים</string>
+    <string name="tab_users">משתמשים</string>
     <string name="tab_news">חדשות</string>
     <string name="tab_following_self">עוקב</string>
     <string name="tab_followers_self">עוקבים</string>
@@ -252,12 +245,8 @@
     <string name="tab_mine">שלי</string>
     <string name="tab_starred">מסומן בכוכב</string>
     <string name="tab_all">הכל</string>
-    <!--  -->
     <string name="share">שתף</string>
     <string name="show_password">הצג סיסמה</string>
     <string name="write">כתוב</string>
     <string name="preview">תצוגה מקדימה</string>
-    <string name="show_raw_markdown">Show raw markdown</string>
-    <string name="render_markdown">Render markdown</string>
-
 </resources>

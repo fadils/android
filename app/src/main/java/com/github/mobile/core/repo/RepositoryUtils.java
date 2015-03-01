@@ -71,6 +71,7 @@ public class RepositoryUtils {
                 || "new".equals(name) //
                 || "notifications".equals(name) //
                 || "organizations".equals(name) //
+                || "orgs".equals(name) //
                 || "repositories".equals(name) //
                 || "search".equals(name) //
                 || "security".equals(name) //
@@ -81,6 +82,23 @@ public class RepositoryUtils {
                 || "training".equals(name) //
                 || "users".equals(name) //
                 || "watching".equals(name))
+            return false;
+        else
+            return true;
+    }
+
+    /**
+     * Is the given repo name valid?
+     *
+     * @param name
+     * @return true if valid, false otherwise
+     */
+    public static boolean isValidRepo(final String name) {
+        if (TextUtils.isEmpty(name))
+            return false;
+
+        if ("followers".equals(name) //
+                || "following".equals(name))
             return false;
         else
             return true;

@@ -18,10 +18,6 @@ package com.github.mobile.ui.user;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
 import static com.github.mobile.Intents.EXTRA_USER;
-import static com.github.mobile.util.TypefaceUtils.ICON_FOLLOW;
-import static com.github.mobile.util.TypefaceUtils.ICON_NEWS;
-import static com.github.mobile.util.TypefaceUtils.ICON_PUBLIC;
-import static com.github.mobile.util.TypefaceUtils.ICON_WATCH;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -32,10 +28,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.github.kevinsawicki.wishlist.ViewUtils;
 import com.github.mobile.Intents.Builder;
-import com.github.mobile.R.id;
-import com.github.mobile.R.layout;
-import com.github.mobile.R.menu;
-import com.github.mobile.R.string;
+import com.github.mobile.R;
 import com.github.mobile.core.user.FollowUserTask;
 import com.github.mobile.core.user.FollowingUserTask;
 import com.github.mobile.core.user.RefreshUserTask;
@@ -43,6 +36,7 @@ import com.github.mobile.core.user.UnfollowUserTask;
 import com.github.mobile.ui.TabPagerActivity;
 import com.github.mobile.util.AvatarLoader;
 import com.github.mobile.util.ToastUtils;
+import com.github.mobile.util.TypefaceUtils;
 import com.google.inject.Inject;
 
 import org.eclipse.egit.github.core.User;
@@ -79,7 +73,7 @@ public class UserViewActivity extends TabPagerActivity<UserPagerAdapter>
         super.onCreate(savedInstanceState);
 
         user = (User) getIntent().getSerializableExtra(EXTRA_USER);
-        loadingBar = finder.find(id.pb_loading);
+        loadingBar = finder.find(R.id.pb_loading);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -105,7 +99,7 @@ public class UserViewActivity extends TabPagerActivity<UserPagerAdapter>
                     super.onException(e);
 
                     ToastUtils.show(UserViewActivity.this,
-                            string.error_person_load);
+                            R.string.error_person_load);
                     ViewUtils.setGone(loadingBar, true);
                 }
             }.execute();
@@ -114,17 +108,17 @@ public class UserViewActivity extends TabPagerActivity<UserPagerAdapter>
 
     @Override
     public boolean onCreateOptionsMenu(Menu optionsMenu) {
-        getSupportMenuInflater().inflate(menu.user_follow, optionsMenu);
+        getSupportMenuInflater().inflate(R.menu.user_follow, optionsMenu);
 
         return super.onCreateOptionsMenu(optionsMenu);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem followItem = menu.findItem(id.m_follow);
+        MenuItem followItem = menu.findItem(R.id.m_follow);
 
         followItem.setVisible(followingStatusChecked);
-        followItem.setTitle(isFollowing ? string.unfollow : string.follow);
+        followItem.setTitle(isFollowing ? R.string.unfollow : R.string.follow);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -132,7 +126,7 @@ public class UserViewActivity extends TabPagerActivity<UserPagerAdapter>
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case id.m_follow:
+        case R.id.m_follow:
             followUser();
             return true;
         case android.R.id.home:
@@ -172,20 +166,20 @@ public class UserViewActivity extends TabPagerActivity<UserPagerAdapter>
 
     @Override
     protected int getContentView() {
-        return layout.tabbed_progress_pager;
+        return R.layout.tabbed_progress_pager;
     }
 
     @Override
     protected String getIcon(int position) {
         switch (position) {
         case 0:
-            return ICON_NEWS;
+            return TypefaceUtils.ICON_RSS;
         case 1:
-            return ICON_PUBLIC;
+            return TypefaceUtils.ICON_REPO;
         case 2:
-            return ICON_WATCH;
+            return TypefaceUtils.ICON_EYE;
         case 3:
-            return ICON_FOLLOW;
+            return TypefaceUtils.ICON_RADIO_TOWER;
         default:
             return super.getIcon(position);
         }
@@ -207,7 +201,7 @@ public class UserViewActivity extends TabPagerActivity<UserPagerAdapter>
                     super.onException(e);
 
                     ToastUtils.show(UserViewActivity.this,
-                            string.error_unfollowing_person);
+                            R.string.error_unfollowing_person);
                 }
             }.start();
         else
@@ -225,7 +219,7 @@ public class UserViewActivity extends TabPagerActivity<UserPagerAdapter>
                     super.onException(e);
 
                     ToastUtils.show(UserViewActivity.this,
-                            string.error_following_person);
+                            R.string.error_following_person);
                 }
             }.start();
     }

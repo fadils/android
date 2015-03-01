@@ -19,8 +19,8 @@ import static android.graphics.Bitmap.CompressFormat.PNG;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 import static android.view.View.VISIBLE;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -30,8 +30,7 @@ import android.widget.ImageView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.github.kevinsawicki.http.HttpRequest;
-import com.github.mobile.R.drawable;
-import com.github.mobile.R.id;
+import com.github.mobile.R;
 import com.github.mobile.core.search.SearchUser;
 import com.google.inject.Inject;
 
@@ -97,19 +96,22 @@ public class AvatarLoader {
 
     private final Drawable loadingAvatar;
 
-    private final Options options;
+    /**
+     * The maximal size of avatar images, used to rescale images to save memory.
+     */
+    private final int avatarSize;
 
     /**
      * Create avatar helper
      *
-     * @param context
+     * @param context The context from which you're calling the method.
      */
     @Inject
     public AvatarLoader(final Context context) {
         this.context = context;
 
         loadingAvatar = context.getResources().getDrawable(
-                drawable.gravatar_icon);
+                R.drawable.gravatar_icon);
 
         avatarDir = new File(context.getCacheDir(), "avatars/github.com");
         if (!avatarDir.isDirectory())
@@ -118,9 +120,16 @@ public class AvatarLoader {
         float density = context.getResources().getDisplayMetrics().density;
         cornerRadius = CORNER_RADIUS_IN_DIP * density;
 
-        options = new Options();
-        options.inDither = false;
-        options.inPreferredConfig = ARGB_8888;
+        avatarSize = getMaxAvatarSize(context);
+    }
+
+    private int getMaxAvatarSize(final Context context) {
+        int[] attrs = { android.R.attr.layout_height };
+        TypedArray array = context.getTheme().obtainStyledAttributes(R.style.AvatarXLarge, attrs);
+        // Passing default value of 100px, but it shouldn't resolve to default anyway.
+        int size = array.getLayoutDimension(0, 100);
+        array.recycle();
+        return size;
     }
 
     private BitmapDrawable getImageBy(final String userId, final String filename) {
@@ -140,13 +149,19 @@ public class AvatarLoader {
 
     private void deleteCachedUserAvatars(final File userAvatarDir) {
         if (userAvatarDir.isDirectory())
-          for (File userAvatar : userAvatarDir.listFiles())
-              userAvatar.delete();
+            for (File userAvatar : userAvatarDir.listFiles())
+                userAvatar.delete();
         userAvatarDir.delete();
     }
 
+    /**
+     * Load an avatar from the given file and automatically rescale it to the
+     * target dimensions to save memory.
+     * @param file The file name to load the avatar from.
+     * @return The rescaled avatar bitmap, or null.
+     */
     private Bitmap decode(final File file) {
-        return BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+        return ImageUtils.getBitmap(file.getAbsolutePath(), avatarSize, avatarSize);
     }
 
     private String getAvatarFilenameForUrl(final String avatarUrl) {
@@ -156,8 +171,8 @@ public class AvatarLoader {
     /**
      * Fetch avatar from URL
      *
-     * @param url
-     * @param cachedAvatarFilename
+     * @param url The URL from which to retrieve the avatar.
+     * @param cachedAvatarFilename The filename under which to store the cached avatar.
      * @return bitmap
      */
     protected BitmapDrawable fetchAvatar(final String url,
@@ -211,8 +226,8 @@ public class AvatarLoader {
     /**
      * Sets the logo on the {@link ActionBar} to the user's avatar.
      *
-     * @param actionBar
-     * @param user
+     * @param actionBar An ActionBar object on which you're placing the user's avatar.
+     * @param user An AtomicReference that points to the desired user.
      * @return this helper
      */
     public AvatarLoader bind(final ActionBar actionBar, final User user) {
@@ -222,8 +237,8 @@ public class AvatarLoader {
     /**
      * Sets the logo on the {@link ActionBar} to the user's avatar.
      *
-     * @param actionBar
-     * @param userReference
+     * @param actionBar An ActionBar object on which you're placing the user's avatar.
+     * @param userReference An AtomicReference that points to the desired user.
      * @return this helper
      */
     public AvatarLoader bind(final ActionBar actionBar,
@@ -275,7 +290,7 @@ public class AvatarLoader {
     private AvatarLoader setImage(final Drawable image, final ImageView view,
             Object tag) {
         view.setImageDrawable(image);
-        view.setTag(id.iv_avatar, tag);
+        view.setTag(R.id.iv_avatar, tag);
         view.setVisibility(VISIBLE);
         return this;
     }
@@ -320,8 +335,8 @@ public class AvatarLoader {
     /**
      * Bind view to image at URL
      *
-     * @param view
-     * @param user
+     * @param view The ImageView that is to display the user's avatar.
+     * @param user A User object that points to the desired user.
      * @return this helper
      */
     public AvatarLoader bind(final ImageView view, final User user) {
@@ -346,8 +361,8 @@ public class AvatarLoader {
     /**
      * Bind view to image at URL
      *
-     * @param view
-     * @param user
+     * @param view The ImageView that is to display the user's avatar.
+     * @param user A CommitUser object that points to the desired user.
      * @return this helper
      */
     public AvatarLoader bind(final ImageView view, final CommitUser user) {
@@ -374,8 +389,8 @@ public class AvatarLoader {
     /**
      * Bind view to image at URL
      *
-     * @param view
-     * @param contributor
+     * @param view The ImageView that is to display the user's avatar.
+     * @param contributor A Contributor object that points to the desired user.
      * @return this helper
      */
     public AvatarLoader bind(final ImageView view, final Contributor contributor) {
@@ -402,8 +417,8 @@ public class AvatarLoader {
     /**
      * Bind view to image at URL
      *
-     * @param view
-     * @param user
+     * @param view The ImageView that is to display the user's avatar.
+     * @param user a SearchUser object that refers to the desired user.
      * @return this helper
      */
     public AvatarLoader bind(final ImageView view, final SearchUser user) {
@@ -433,7 +448,7 @@ public class AvatarLoader {
 
             @Override
             public BitmapDrawable call() throws Exception {
-                if (!userId.equals(view.getTag(id.iv_avatar)))
+                if (!userId.equals(view.getTag(R.id.iv_avatar)))
                     return null;
 
                 final String avatarFilename = getAvatarFilenameForUrl(avatarUrl);
@@ -449,7 +464,7 @@ public class AvatarLoader {
                 if (image == null)
                     return;
                 loaded.put(userId, image);
-                if (userId.equals(view.getTag(id.iv_avatar)))
+                if (userId.equals(view.getTag(R.id.iv_avatar)))
                     setImage(image, view);
             }
         };

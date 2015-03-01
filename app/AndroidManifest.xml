@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.mobile"
-    android:versionCode="1900"
-    android:versionName="1.9.0" >
-
-    <!-- Target SDK version must be 16, not 17, or JavaScript bridge for
-         WebView widgets does not work on a 4.2 Nexus 7 -->
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="16" />
+    package="com.github.mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -30,11 +22,11 @@
         android:hardwareAccelerated="false"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.GitHub" >
+        android:theme="@style/Theme.GitHub">
         <activity
             android:name=".ui.user.HomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true" >
+            android:hardwareAccelerated="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,11 +35,11 @@
 
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".ui.search.SearchActivity" />
+                android:value="com.github.mobile.ui.search.SearchActivity" />
         </activity>
         <activity
             android:name=".ui.gist.CreateGistActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -59,22 +51,22 @@
         <activity
             android:name=".ui.issue.IssueBrowseActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true" >
+            android:hardwareAccelerated="true">
             <intent-filter>
-                <action android:name="com.github.mobile.repo.issues.VIEW" />
+                <action android:name="jp.forkhub.mobile.repo.issues.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".ui.issue.IssueSearchActivity" />
+                android:value="com.github.mobile.ui.issue.IssueSearchActivity" />
         </activity>
         <activity
             android:name=".ui.issue.EditIssuesFilterActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.repo.issues.filter.VIEW" />
+                <action android:name="jp.forkhub.mobile.repo.issues.filter.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -82,18 +74,18 @@
         <activity
             android:name=".ui.issue.IssueDashboardActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true" >
+            android:hardwareAccelerated="true">
             <intent-filter>
-                <action android:name="com.github.mobile.repo.issues.dashboard.VIEW" />
+                <action android:name="jp.forkhub.mobile.repo.issues.dashboard.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.issue.EditIssueActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.repo.issues.edit.VIEW" />
+                <action android:name="jp.forkhub.mobile.repo.issues.edit.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -103,7 +95,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:label="@string/search_title"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -119,54 +111,54 @@
         <activity
             android:name=".ui.issue.FiltersViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true" >
+            android:hardwareAccelerated="true">
             <intent-filter>
-                <action android:name="com.github.mobile.repo.issues.filters.VIEW" />
+                <action android:name="jp.forkhub.mobile.repo.issues.filters.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.gist.GistsViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.gists.VIEW" />
+                <action android:name="jp.forkhub.mobile.gists.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.gist.GistFilesViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.gist.files.VIEW" />
+                <action android:name="jp.forkhub.mobile.gist.files.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.issue.CreateCommentActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.issue.comment.create.VIEW" />
+                <action android:name="jp.forkhub.mobile.issue.comment.create.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.gist.CreateCommentActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.gist.comment.create.VIEW" />
+                <action android:name="jp.forkhub.mobile.gist.comment.create.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.commit.CreateCommentActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.commit.comment.create.VIEW" />
+                <action android:name="jp.forkhub.mobile.commit.comment.create.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -174,23 +166,23 @@
         <activity
             android:name=".ui.repo.RepositoryViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true" >
+            android:hardwareAccelerated="true">
             <intent-filter>
-                <action android:name="com.github.mobile.repo.VIEW" />
+                <action android:name="jp.forkhub.mobile.repo.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".ui.issue.IssueSearchActivity" />
+                android:value="com.github.mobile.ui.issue.IssueSearchActivity" />
         </activity>
         <activity
-                android:name=".ui.repo.RepositoryContributorsActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:hardwareAccelerated="true" >
+            android:name=".ui.repo.RepositoryContributorsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true">
             <intent-filter>
-                <action android:name="com.github.mobile.repo.contributors.VIEW" />
+                <action android:name="jp.forkhub.mobile.repo.contributors.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -198,18 +190,18 @@
         <activity
             android:name=".ui.user.UserViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true" >
+            android:hardwareAccelerated="true">
             <intent-filter>
-                <action android:name="com.github.mobile.user.VIEW" />
+                <action android:name="jp.forkhub.mobile.user.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.issue.IssuesViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.issues.VIEW" />
+                <action android:name="jp.forkhub.mobile.issues.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -218,7 +210,7 @@
         <service
             android:name=".accounts.AccountAuthenticatorService"
             android:exported="false"
-            android:process=":auth" >
+            android:process=":auth">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -231,7 +223,7 @@
         <activity
             android:name=".accounts.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:excludeFromRecents="true" >
+            android:excludeFromRecents="true">
 
             <!--
                 No intent-filter here! This activity is only ever launched by
@@ -241,7 +233,7 @@
         <activity
             android:name=".accounts.TwoFactorAuthActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:excludeFromRecents="true" >
+            android:excludeFromRecents="true">
 
             <!--
                 No intent-filter here! This activity is only ever launched by
@@ -251,7 +243,7 @@
         <activity
             android:name=".ui.user.UriLauncherActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:excludeFromRecents="true" >
+            android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -259,6 +251,7 @@
                     android:host="github.com"
                     android:scheme="http" />
 
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
@@ -268,6 +261,7 @@
                     android:host="github.com"
                     android:scheme="https" />
 
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
@@ -277,6 +271,7 @@
                     android:host="gist.github.com"
                     android:scheme="http" />
 
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
@@ -286,6 +281,7 @@
                     android:host="gist.github.com"
                     android:scheme="https" />
 
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -294,7 +290,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:label="@string/search_title"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -306,36 +302,36 @@
         <activity
             android:name=".ui.commit.CommitCompareViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/commit_compare_title" >
+            android:label="@string/commit_compare_title">
             <intent-filter>
-                <action android:name="com.github.mobile.commits.compare.VIEW" />
+                <action android:name="jp.forkhub.mobile.commits.compare.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.commit.CommitViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.commits.VIEW" />
+                <action android:name="jp.forkhub.mobile.commits.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.commit.CommitFileViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.commit.file.VIEW" />
+                <action android:name="jp.forkhub.mobile.commit.file.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.ref.BranchFileViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="com.github.mobile.branch.file.VIEW" />
+                <action android:name="jp.forkhub.mobile.branch.file.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -344,7 +340,7 @@
         <service
             android:name=".sync.SyncAdapterService"
             android:exported="false"
-            android:process=":repos" >
+            android:process=":repos">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
@@ -356,17 +352,17 @@
 
         <provider
             android:name=".sync.ContentProviderAdapter"
-            android:authorities="com.github.sync"
+            android:authorities="jp.forkhub.sync"
             android:exported="false"
             android:label="GitHub"
             android:syncable="true" />
         <provider
             android:name=".ui.search.RepositorySearchSuggestionsProvider"
-            android:authorities="com.github.search.suggest.recent.repos"
+            android:authorities="jp.forkhub.search.suggest.recent.repos"
             android:exported="false" />
         <provider
             android:name=".ui.issue.IssueSearchSuggestionsProvider"
-            android:authorities="com.github.search.suggest.recent.issues"
+            android:authorities="jp.forkhub.search.suggest.recent.issues"
             android:exported="false" />
     </application>
 

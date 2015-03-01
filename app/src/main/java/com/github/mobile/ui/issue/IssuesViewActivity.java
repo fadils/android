@@ -29,9 +29,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.github.mobile.Intents.Builder;
-import com.github.mobile.R.id;
-import com.github.mobile.R.layout;
-import com.github.mobile.R.string;
+import com.github.mobile.R;
 import com.github.mobile.accounts.AccountUtils;
 import com.github.mobile.accounts.AuthenticatedUserTask;
 import com.github.mobile.core.issue.IssueStore;
@@ -39,9 +37,9 @@ import com.github.mobile.core.issue.IssueUtils;
 import com.github.mobile.core.repo.RefreshRepositoryTask;
 import com.github.mobile.ui.FragmentProvider;
 import com.github.mobile.ui.PagerActivity;
-import com.github.mobile.ui.UrlLauncher;
 import com.github.mobile.ui.ViewPager;
 import com.github.mobile.ui.repo.RepositoryViewActivity;
+import com.github.mobile.ui.user.UriLauncherActivity;
 import com.github.mobile.util.AvatarLoader;
 import com.google.inject.Inject;
 
@@ -178,8 +176,6 @@ public class IssuesViewActivity extends PagerActivity {
 
     private IssuesPagerAdapter adapter;
 
-    private final UrlLauncher urlLauncher = new UrlLauncher(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,7 +186,7 @@ public class IssuesViewActivity extends PagerActivity {
         repoIds = getSerializableExtra(EXTRA_REPOSITORIES);
         repo = getSerializableExtra(EXTRA_REPOSITORY);
 
-        setContentView(layout.pager);
+        setContentView(R.layout.pager);
 
         if (repo != null) {
             ActionBar actionBar = getSupportActionBar();
@@ -221,7 +217,7 @@ public class IssuesViewActivity extends PagerActivity {
 
     private void configurePager() {
         int initialPosition = getIntExtra(EXTRA_POSITION);
-        pager = finder.find(id.vp_pages);
+        pager = finder.find(R.id.vp_pages);
 
         if (repo != null)
             adapter = new IssuesPagerAdapter(this, repo, issueNumbers, isCollaborator);
@@ -240,10 +236,10 @@ public class IssuesViewActivity extends PagerActivity {
 
         if (pullRequest)
             getSupportActionBar().setTitle(
-                    getString(string.pull_request_title) + number);
+                    getString(R.string.pull_request_title) + number);
         else
             getSupportActionBar().setTitle(
-                    getString(string.issue_title) + number);
+                    getString(R.string.issue_title) + number);
     }
 
     @Override
@@ -288,7 +284,7 @@ public class IssuesViewActivity extends PagerActivity {
 
     @Override
     public void startActivity(Intent intent) {
-        Intent converted = urlLauncher.convert(intent);
+        Intent converted = UriLauncherActivity.convert(intent);
         if (converted != null)
             super.startActivity(converted);
         else
@@ -302,8 +298,8 @@ public class IssuesViewActivity extends PagerActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem editItem = menu.findItem(id.m_edit);
-        MenuItem stateItem = menu.findItem(id.m_state);
+        MenuItem editItem = menu.findItem(R.id.m_edit);
+        MenuItem stateItem = menu.findItem(R.id.m_state);
         if (editItem != null && stateItem != null) {
             editItem.setVisible(isCollaborator);
             stateItem.setVisible(isCollaborator);
@@ -345,7 +341,7 @@ public class IssuesViewActivity extends PagerActivity {
             @Override
             protected Boolean run(Account account) throws Exception {
                 return collaboratorService.isCollaborator(repo != null ? repo : repoIds.get(0),
-                    AccountUtils.getLogin(IssuesViewActivity.this));
+                        AccountUtils.getLogin(IssuesViewActivity.this));
             }
 
             @Override

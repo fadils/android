@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,14 +33,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.github.kevinsawicki.wishlist.SingleTypeAdapter;
 import com.github.kevinsawicki.wishlist.ViewUtils;
-import com.github.mobile.R.id;
-import com.github.mobile.R.layout;
-import com.github.mobile.R.menu;
+import com.github.mobile.R;
 import com.github.mobile.ThrowableLoader;
 import com.github.mobile.util.ToastUtils;
 
@@ -53,9 +49,11 @@ import java.util.List;
  * @param <E>
  */
 public abstract class ItemListFragment<E> extends DialogFragment implements
-        LoaderCallbacks<List<E>> {
+        LoaderCallbacks<List<E>>, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String FORCE_REFRESH = "forceRefresh";
+
+    private SwipeRefreshLayout swipeLayout;
 
     /**
      * @param args
@@ -105,7 +103,12 @@ public abstract class ItemListFragment<E> extends DialogFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        return inflater.inflate(layout.item_list, null);
+        return inflater.inflate(R.layout.item_list, null);
+    }
+
+    @Override
+    public void onRefresh() {
+        forceRefresh();
     }
 
     /**
@@ -125,6 +128,14 @@ public abstract class ItemListFragment<E> extends DialogFragment implements
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_item);
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorSchemeResources(
+                R.color.pager_title_background_top_start,
+                R.color.pager_title_background_end,
+                R.color.text_link,
+                R.color.pager_title_background_end);
+
         listView = (ListView) view.findViewById(android.R.id.list);
         listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -143,7 +154,7 @@ public abstract class ItemListFragment<E> extends DialogFragment implements
                         id);
             }
         });
-        progressBar = (ProgressBar) view.findViewById(id.pb_loading);
+        progressBar = (ProgressBar) view.findViewById(R.id.pb_loading);
 
         emptyView = (TextView) view.findViewById(android.R.id.empty);
 
@@ -158,25 +169,6 @@ public abstract class ItemListFragment<E> extends DialogFragment implements
      */
     protected void configureList(Activity activity, ListView listView) {
         listView.setAdapter(createAdapter());
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu optionsMenu, MenuInflater inflater) {
-        inflater.inflate(menu.refresh, optionsMenu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (!isUsable())
-            return false;
-
-        switch (item.getItemId()) {
-        case id.m_refresh:
-            forceRefresh();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     /**
@@ -199,8 +191,6 @@ public abstract class ItemListFragment<E> extends DialogFragment implements
         if (!isUsable())
             return;
 
-        getSherlockActivity()
-                .setSupportProgressBarIndeterminateVisibility(true);
         getLoaderManager().restartLoader(0, args, this);
     }
 
@@ -216,8 +206,7 @@ public abstract class ItemListFragment<E> extends DialogFragment implements
         if (!isUsable())
             return;
 
-        getSherlockActivity().setSupportProgressBarIndeterminateVisibility(
-                false);
+        swipeLayout.setRefreshing(false);
         Exception exception = getException(loader);
         if (exception != null) {
             showError(exception, getErrorMessage(exception));
